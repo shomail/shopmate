@@ -304,3 +304,12 @@ footer {
   opacity: 0.5;
   margin-top: 12px;
 }
+
+.no-items-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #34495e;
+  opacity: 0.5;
+}
