@@ -1,10 +1,14 @@
 import { AddItemForm } from './AddItemForm';
 import { ButtonGroup } from './ButtonGroup';
 
-export const Sidebar = () => {
+interface SidebarProps {
+  handleAddItem: (item: string) => void;
+}
+
+export const Sidebar = ({ handleAddItem }: SidebarProps) => {
   return (
     <div className="sidebar">
-      <AddItemForm />
+      <AddItemForm handleAddItem={handleAddItem} />
       <ButtonGroup />
     </div>
   );

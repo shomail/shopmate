@@ -1,26 +1,12 @@
-import { useState } from 'react';
 import { Item, Item as ItemType } from './Item';
 
-export const ItemList = () => {
-  const [items, setItems] = useState<ItemType[]>([
-    {
-      id: '1',
-      name: 'milk',
-      status: false,
-    },
-    {
-      id: '2',
-      name: 'eggs',
-      status: false,
-    },
-    {
-      id: '3',
-      name: 'bread',
-      status: false,
-    },
-  ]);
+interface ItemListProps {
+  items: ItemType[];
+  setItems: React.Dispatch<React.SetStateAction<ItemType[]>>;
+}
 
-  const handleChange = (id: string) => {
+export const ItemList = ({ items, setItems }: ItemListProps) => {
+  const handleChange = (id: number) => {
     setItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, status: !item.status } : item)));
   };
 

@@ -1,10 +1,24 @@
+import { useState } from 'react';
 import { Button } from '../shared';
 
-export const AddItemForm = () => {
+interface AddItemProps {
+  handleAddItem: (item: string) => void;
+}
+
+export const AddItemForm = ({ handleAddItem }: AddItemProps) => {
+  const [item, setItem] = useState('');
+
+  const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!item) return;
+    handleAddItem(item);
+    setItem('');
+  };
+
   return (
-    <form>
+    <form onSubmit={onFormSubmit}>
       <h2>Add an item</h2>
-      <input type="text" placeholder="Item" />
+      <input autoFocus type="text" placeholder="Name..." value={item} onChange={(e) => setItem(e.target.value)} />
       <Button>Add to list</Button>
     </form>
   );

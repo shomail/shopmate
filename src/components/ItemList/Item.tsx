@@ -1,12 +1,12 @@
 export interface Item {
-  id: string;
+  id: number;
   name: string;
   status: boolean;
 }
 
 interface ItemProps {
   item: Item;
-  handleChange: (id: string) => void;
+  handleChange: (id: number) => void;
 }
 
 export const Item = ({ item: { name, status, id }, handleChange }: ItemProps) => {
