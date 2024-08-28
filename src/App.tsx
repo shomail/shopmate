@@ -1,7 +1,15 @@
+import { Background, Footer, Header, ItemList, Sidebar } from './components';
+
 function App() {
   return (
     <>
-      <h1>shopmate</h1>
+      <Background />
+      <main>
+        <Header />
+        <ItemList />
+        <Sidebar />
+      </main>
+      <Footer />
     </>
   );
 }
