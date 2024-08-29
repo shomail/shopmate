@@ -1,8 +1,22 @@
-export const Counter = () => {
+interface CounterProps {
+  totalItems: number;
+  checkedItems: number;
+}
+
+export const Counter = ({ totalItems, checkedItems }: CounterProps) => {
+  if (totalItems === 0) {
+    return (
+      <p>
+        {' '}
+        <b>0</b> items in cart
+      </p>
+    );
+  }
+
   return (
     <p>
       {' '}
-      <b>1</b> / 3 items in cart
+      <b>{checkedItems}</b> / {totalItems} items in cart
     </p>
   );
 };

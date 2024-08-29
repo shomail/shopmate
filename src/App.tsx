@@ -72,7 +72,7 @@ function App() {
     <>
       <Background />
       <main>
-        <Header />
+        <Header totalItems={items.length} checkedItems={items.filter((i) => i.status).length} />
         <ItemList items={items} handleToggleItemStatus={handleToggleItemStatus} handleDeleteItem={handleDeleteItem} />
         <Sidebar handleAddItem={handleAddItem} handleAction={handleAction} />
       </main>
