@@ -1,20 +1,14 @@
-import { useState } from 'react';
 import { Background, Footer, Header, ItemList, Sidebar } from './components';
 import { Item as ItemType } from './components/ItemList/Item';
 import { ActionType } from './lib/constants';
+import { useLocalStorage } from './lib/hooks';
 
 function App() {
-  const [items, setItems] = useState<ItemType[]>([
-    {
-      id: Date.now(),
-      name: 'milk',
-      status: false,
-    },
-  ]);
+  const [items, setItems] = useLocalStorage<ItemType[]>('items', []);
 
   const handleAddItem = (name: string) => {
-    setItems((prevItems) => [
-      ...prevItems,
+    setItems([
+      ...items,
       {
         id: Date.now(),
         name,
@@ -24,11 +18,11 @@ function App() {
   };
 
   const handleDeleteItem = (id: number) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    setItems(items.filter((item) => item.id !== id));
   };
 
   const handleToggleItemStatus = (id: number) => {
-    setItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, status: !item.status } : item)));
+    setItems(items.map((item) => (item.id === id ? { ...item, status: !item.status } : item)));
   };
 
   const handleRemoveAllItems = () => {
@@ -36,11 +30,11 @@ function App() {
   };
 
   const handleMarkAllAsComplete = () => {
-    setItems((prevItems) => prevItems.map((item) => ({ ...item, status: true })));
+    setItems(items.map((item) => ({ ...item, status: true })));
   };
 
   const handleMarkAllAsIncomplete = () => {
-    setItems((prevItems) => prevItems.map((item) => ({ ...item, status: false })));
+    setItems(items.map((item) => ({ ...item, status: false })));
   };
 
   const handleResetToInitial = () => {
