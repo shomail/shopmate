@@ -1,12 +1,16 @@
-import { buttons } from '../../lib/constants';
+import { buttons, ActionType } from '../../lib/constants';
 import { Button } from '../shared';
 
-export const ButtonGroup = () => {
+interface ButtonGroupProps {
+  handleAction: (action: ActionType) => void;
+}
+
+export const ButtonGroup = ({ handleAction }: ButtonGroupProps) => {
   return (
     <div className="button-group">
-      {buttons.map((button) => (
-        <Button key={button} variant="secondary">
-          {button}
+      {buttons.map(({ action, label }) => (
+        <Button key={action} variant="secondary" onClick={() => handleAction(action)}>
+          {label}
         </Button>
       ))}
     </div>

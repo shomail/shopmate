@@ -6,20 +6,17 @@ export interface Item {
 
 interface ItemProps {
   item: Item;
-  handleChange: (id: number) => void;
+  handleToggleItemStatus: (id: number) => void;
+  handleDeleteItem: (id: number) => void;
 }
 
-export const Item = ({ item: { name, status, id }, handleChange }: ItemProps) => {
-  const onCheckboxChange = () => {
-    handleChange(id);
-  };
-
+export const Item = ({ item: { name, status, id }, handleToggleItemStatus, handleDeleteItem }: ItemProps) => {
   return (
     <li className="item">
       <label>
-        <input type="checkbox" checked={status} onChange={onCheckboxChange} /> {name}
+        <input type="checkbox" checked={status} onChange={() => handleToggleItemStatus(id)} /> {name}
       </label>
-      <button>❌</button>
+      <button onClick={() => handleDeleteItem(id)}>❌</button>
     </li>
   );
 };
