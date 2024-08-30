@@ -1,6 +1,6 @@
 import Select from 'react-select';
-import { Item, Item as ItemType } from './Item';
-import { useState } from 'react';
+import { Item } from './Item';
+import { useMemo, useState } from 'react';
 import { useItemsStore } from '../../lib/store/itemsStore';
 
 export type OptionValue = 'default' | 'checked' | 'unchecked';
@@ -15,7 +15,7 @@ export const ItemList = () => {
   const { items } = useItemsStore();
   const [sortBy, setSortBy] = useState<OptionValue>('default');
 
-  const sortedItems = (items: ItemType[]) => {
+  const sortedItems = useMemo(() => {
     if (sortBy === 'checked') {
       return items.sort((a, b) => (a.status === b.status ? 0 : a.status ? -1 : 1));
     }
@@ -25,7 +25,7 @@ export const ItemList = () => {
     }
 
     return items;
-  };
+  }, [sortBy, items]);
 
   if (!items.length) {
     return <p className="no-items-message">No items found</p>;
@@ -36,7 +36,7 @@ export const ItemList = () => {
       <section className="sorting">
         <Select options={options} defaultValue={options[0]} onChange={(option) => setSortBy(option!.value)} />
       </section>
-      {sortedItems(items).map((item) => (
+      {sortedItems.map((item) => (
         <Item key={item.id} item={item} />
       ))}
     </ul>
