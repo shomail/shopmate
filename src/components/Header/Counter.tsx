@@ -1,9 +1,10 @@
-interface CounterProps {
-  totalItems: number;
-  checkedItems: number;
-}
+import { useItemsStore } from '../../lib/store/itemsStore';
 
-export const Counter = ({ totalItems, checkedItems }: CounterProps) => {
+export const Counter = () => {
+  const { items } = useItemsStore();
+  const totalItems = items.length;
+  const checkedItems = items.filter((i) => i.status).length;
+
   if (totalItems === 0) {
     return (
       <p>

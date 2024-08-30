@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { Button } from '../shared';
+import { useItemsStore } from '../../lib/store/itemsStore';
 
-interface AddItemProps {
-  handleAddItem: (item: string) => void;
-}
-
-export const AddItemForm = ({ handleAddItem }: AddItemProps) => {
+export const AddItemForm = () => {
+  const { addItem } = useItemsStore();
   const [item, setItem] = useState('');
 
   const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!item) return;
-    handleAddItem(item);
+    addItem(item);
     setItem('');
   };
 

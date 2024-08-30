@@ -1,6 +1,7 @@
 import Select from 'react-select';
 import { Item, Item as ItemType } from './Item';
 import { useState } from 'react';
+import { useItemsStore } from '../../lib/store/itemsStore';
 
 export type OptionValue = 'default' | 'checked' | 'unchecked';
 
@@ -10,13 +11,8 @@ const options: Array<{ value: OptionValue; label: string }> = [
   { value: 'unchecked', label: 'Sort by Items Left' },
 ];
 
-interface ItemListProps {
-  items: ItemType[];
-  handleDeleteItem: (id: number) => void;
-  handleToggleItemStatus: (id: number) => void;
-}
-
-export const ItemList = ({ items, handleToggleItemStatus, handleDeleteItem }: ItemListProps) => {
+export const ItemList = () => {
+  const { items } = useItemsStore();
   const [sortBy, setSortBy] = useState<OptionValue>('default');
 
   const sortedItems = (items: ItemType[]) => {
@@ -41,12 +37,7 @@ export const ItemList = ({ items, handleToggleItemStatus, handleDeleteItem }: It
         <Select options={options} defaultValue={options[0]} onChange={(option) => setSortBy(option!.value)} />
       </section>
       {sortedItems(items).map((item) => (
-        <Item
-          key={item.id}
-          handleToggleItemStatus={handleToggleItemStatus}
-          item={item}
-          handleDeleteItem={handleDeleteItem}
-        />
+        <Item key={item.id} item={item} />
       ))}
     </ul>
   );

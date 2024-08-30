@@ -1,3 +1,5 @@
+import { useItemsStore } from '../../lib/store/itemsStore';
+
 export interface Item {
   id: number;
   name: string;
@@ -6,17 +8,16 @@ export interface Item {
 
 interface ItemProps {
   item: Item;
-  handleToggleItemStatus: (id: number) => void;
-  handleDeleteItem: (id: number) => void;
 }
 
-export const Item = ({ item: { name, status, id }, handleToggleItemStatus, handleDeleteItem }: ItemProps) => {
+export const Item = ({ item: { name, status, id } }: ItemProps) => {
+  const { toggleItemStatus, deleteItem } = useItemsStore();
   return (
     <li className="item">
       <label>
-        <input type="checkbox" checked={status} onChange={() => handleToggleItemStatus(id)} /> {name}
+        <input type="checkbox" checked={status} onChange={() => toggleItemStatus(id)} /> {name}
       </label>
-      <button onClick={() => handleDeleteItem(id)}>❌</button>
+      <button onClick={() => deleteItem(id)}>❌</button>
     </li>
   );
 };
